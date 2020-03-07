@@ -1,6 +1,6 @@
 import React from 'react'
-import RecipeList from './RecipeList'
-import SearchBox from './SearchBox'
+import Login from './Login'
+import SearchPage from './SearchPage'
 
 class App extends React.Component {
   constructor(props) {
@@ -47,16 +47,14 @@ class App extends React.Component {
       })
   }
   componentDidMount() {
-    this.fetchItems(this.state.recipe, this.state.page)
+    // this.fetchItems(this.state.recipe, this.state.page)
   }
   render() { 
     return (
       <div className="container mx-auto px-4">
-        <header>
-          <h1 className="text-3xl py-6">Recipe Puppy</h1>
-          <p className="text-gray-700 px-6">Enter the recipe you are looking for below</p>
-        </header>
-        <SearchBox
+        {/* <Login /> */}
+        <SearchPage />
+        {/* <SearchBox
           searchRecipe={this.searchRecipe}
         />
         <RecipeList
@@ -65,7 +63,7 @@ class App extends React.Component {
           isLoaded={this.state.isLoaded}
           page={this.state.page}
           turnPage={this.turnPage}
-        />
+        /> */}
       </div>
     );
   }

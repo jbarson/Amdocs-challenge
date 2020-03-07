@@ -2,18 +2,18 @@ import React from 'react'
 import PropTypes from "prop-types"
 
 class SearchBox extends React.Component {
-  recipeRef = React.createRef()
+  // searchRef = React.createRef()
 
-  static propTypes = {
-    searchRecipe: PropTypes.func
-  }
+  // static propTypes = {
+  //   searchRecipe: PropTypes.func
+  // }
 
-  handleSubmit = event => { 
-    event.preventDefault()
-    console.log(this.recipeRef.current.value)
-    this.props.searchRecipe(this.recipeRef.current.value)
-    event.currentTarget.reset()
-  }
+  // handleSubmit = event => { 
+  //   event.preventDefault()
+  //   console.log(this.searchRef.current.value)
+  //   this.props.searchRecipe(this.searchRef.current.value)
+  //   event.currentTarget.reset()
+  // }
 
   render() {
     return (
@@ -24,15 +24,12 @@ class SearchBox extends React.Component {
         <div className="flex items-center border-b border-b-2 border-teal-500 py-2">
           <input
             className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-            ref={this.recipeRef}
+            ref={this.searchRef}
             type="text"
-            placeholder="Recipe"
-            aria-label="Recipe"
+            placeholder="Enter User Name"
+            aria-label="Enter User Name"
           />
-          <button
-            className="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded"
-            type="submit"
-          >
+          <button className="bg-gray-500 px-4 py-2 text-sm" type="submit">
             Search
           </button>
         </div>
