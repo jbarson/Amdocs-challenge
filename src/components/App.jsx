@@ -6,64 +6,61 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: null,
-      isLoaded: false,
-      items: [],
-      page: 1,
-      recipe: 'Omelet',
+      loggedIn: false,
+      jsonToken: '',
+      loginError: false,
+      users: []
     };
   }
-  fetchItems = (recipe, page) => { 
-    fetch(`http://www.recipepuppy.com/api/?q=${recipe}&p=${page}`)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result.results,
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
+
+  login = (username, credential) => { 
+    fetch('http://3.122.7.162:5000/v60/admin/session', {
+      method: 'POST',
+      'Content-Type': 'application/json',
+      body: JSON.stringify({username, credential})
+    })
+      .then(data => {
+        console.log(data)
+        if (!data.ok) { 
+          this.setState({loginError: true})
         }
-      )
+        //Set jsessionId here  
+        window.localStorage.setItem('token', data.JSESSIONID)
+        //Note, I cannot get the login to work so this may not be the correct object to save
+      }) 
+      .catch((err) => {
+        this.setState({loginError: true})
+        console.error(err);
+    })
   }
-  turnPage = (increment) => { 
-    const newPage = this.state.page + increment
-    if (newPage > 0) { 
-      this.setState({
-        page: newPage
-      })
-      this.fetchItems(this.state.recipe, newPage)
-    }
+
+  searchUsers = (user) => {
+    fetch(`http://3.122.7.162:5000/v60/admin/search/user?keyword=${user}&alias=false`, {
+      'Content-Type': 'application/json',
+      'withCredentials': true
+    })
+      .then(data => {
+        console.log(data)
+        //again, I do not have access to the endpoint, so setting the users here is made a little difficult
+      }) 
+      .catch((err) => {
+        console.error(err);
+    })
   }
-  searchRecipe = (search) => { 
-    this.fetchItems(search, this.state.page)
-    this.setState({
-        recipe: search
-      })
-  }
-  componentDidMount() {
-    // this.fetchItems(this.state.recipe, this.state.page)
-  }
+  
   render() { 
     return (
       <div className="container mx-auto px-4">
-        {/* <Login /> */}
-        <SearchPage />
-        {/* <SearchBox
-          searchRecipe={this.searchRecipe}
-        />
-        <RecipeList
-          items={this.state.items}
-          error={this.state.error}
-          isLoaded={this.state.isLoaded}
-          page={this.state.page}
-          turnPage={this.turnPage}
-        /> */}
+        {this.state.loggedIn ? (
+          <SearchPage
+            searchUsers={this.searchUsers}
+          />
+        ) : (
+            <Login
+              login={this.login}
+              error={this.state.loginError}
+            />
+        )}
       </div>
     );
   }

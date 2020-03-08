@@ -2,38 +2,70 @@ import React from 'react'
 import PropTypes from "prop-types"
 
 class SearchBox extends React.Component {
-  // searchRef = React.createRef()
+  searchRef = React.createRef()
 
-  // static propTypes = {
-  //   searchRecipe: PropTypes.func
-  // }
+  static propTypes = {
+    searchUsers: PropTypes.func
+  }
 
-  // handleSubmit = event => { 
-  //   event.preventDefault()
-  //   console.log(this.searchRef.current.value)
-  //   this.props.searchRecipe(this.searchRef.current.value)
-  //   event.currentTarget.reset()
-  // }
+  handleSubmit = event => { 
+    event.preventDefault()
+    console.log(this.searchRef.current.value)
+    this.props.searchUsers(this.searchRef.current.value)
+  }
 
   render() {
     return (
-      <form
-        className="w-full max-w-sm py-4"
-        onSubmit={this.handleSubmit}
-      >
-        <div className="flex items-center border-b border-b-2 border-teal-500 py-2">
-          <input
-            className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-            ref={this.searchRef}
-            type="text"
-            placeholder="Enter User Name"
-            aria-label="Enter User Name"
-          />
-          <button className="bg-gray-500 px-4 py-2 text-sm" type="submit">
-            Search
-          </button>
+      <div>
+        <form
+          className="mx-auto p-16 max-w-xl mt-4 bg-orange-500 border-8 border-white"
+          onSubmit={this.handleSubmit}
+        >
+          <h1 className="text-2xl font-hairline px-2">Search User</h1>
+          <div className="flex justify-between">
+            <input
+              className="shadow appearance-none w-1/2 py-1 px-2 mr-4  leading-tight focus:outline-none focus:shadow-outline"
+              ref={this.searchRef}
+              type="text"
+              placeholder="Enter User Name"
+              aria-label="Enter User Name"
+            />
+            <button className="bg-gray-500 px-2 py-1" type="submit">
+              Search
+            </button>
+          </div>
+        </form>
+        <div className="mx-auto py-8 px-4 max-w-xl mt-4 bg-gray-200 border-8 border-white">
+          <h1 className="text-xl font-bold pb-8">SEARCH RESULT FOR: <span className="font-normal">test</span></h1>
+          <h2>Users</h2>
+          <table className="table-fixed w-full">
+            <thead>
+              <tr className="bg-gray-600">
+                <th className="w-1/2 px-4 py-2 border border-white">Username</th>
+                <th className="w-1/4 px-4 py-2 border border-white">Name</th>
+                <th className="w-1/4 px-4 py-2 border border-white">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td className="border border-gray-400 px-4 py-2">Intro to CSS</td>
+                <td className="border border-gray-400 px-4 py-2">Adam</td>
+                <td className="border border-gray-400 px-4 py-2">858</td>
+              </tr>
+              <tr className="bg-gray-300">
+                <td className="border border-gray-400 px-4 py-2">A Long and Winding Tour</td>
+                <td className="border border-gray-400 px-4 py-2">Adam</td>
+                <td className="border border-gray-400 px-4 py-2">112</td>
+              </tr>
+              <tr>
+                <td className="border border-gray-400 px-4 py-2">Intro to JavaScript</td>
+                <td className="border border-gray-400 px-4 py-2">Chris</td>
+                <td className="border border-gray-400 px-4 py-2">1,280</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </form>
+      </div>
      )
   }
 }
