@@ -47,21 +47,14 @@ class SearchBox extends React.Component {
               </tr>
             </thead>
             <tbody>
-              <tr >
-                <td className="border border-gray-400 px-4 py-2">Intro to CSS</td>
-                <td className="border border-gray-400 px-4 py-2">Adam</td>
-                <td className="border border-gray-400 px-4 py-2">858</td>
+              {this.props.users.map(user => (
+                <tr className="even:bg-gray-300">
+                  <td className="border border-gray-400 px-4 py-2">{user.username}</td>
+                <td className="border border-gray-400 px-4 py-2">{user.name}</td>
+                  <td className="border border-gray-400 px-4 py-2">{user.status}</td>
               </tr>
-              <tr className="bg-gray-300">
-                <td className="border border-gray-400 px-4 py-2">A Long and Winding Tour</td>
-                <td className="border border-gray-400 px-4 py-2">Adam</td>
-                <td className="border border-gray-400 px-4 py-2">112</td>
-              </tr>
-              <tr>
-                <td className="border border-gray-400 px-4 py-2">Intro to JavaScript</td>
-                <td className="border border-gray-400 px-4 py-2">Chris</td>
-                <td className="border border-gray-400 px-4 py-2">1,280</td>
-              </tr>
+              ))}
+              
             </tbody>
           </table>
         </div>
